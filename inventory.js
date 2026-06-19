@@ -4,11 +4,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5hbWZqdnBqYWZvcHptbHFwb3FvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4NzQ3NzksImV4cCI6MjA5NzQ1MDc3OX0.SPH0BvGeRpa8ff8GJWiEySpu1z9qmIEhFiFEbDXS4DI";
 
-const supabase =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const LOW_DOSE_SMS_THRESHOLD = 3;
 
@@ -38,7 +34,7 @@ async function doLogin() {
   console.log(email);
 
   const { data, error } =
-  await supabase.auth.signInWithPassword({
+  await supabaseClient.auth.signInWithPassword({
       email,
       password
   });
@@ -91,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 console.log("Supabase loaded");
-console.log(supabase);
+console.log(supabaseClient);
 
 function doLogout() {
   currentUser = null;
@@ -105,7 +101,7 @@ function doLogout() {
 async function initApp(){
 
     const { data } =
-    await supabase.auth.getUser();
+    await supabaseClient.auth.getUser();
 
     if(data.user){
 
@@ -134,7 +130,7 @@ async function initApp(){
 async function loadJars() {
 
     const { data, error } =
-    await supabase
+    await supabaseClient
         .from("jars")
         .select("*");
 
@@ -283,7 +279,7 @@ async function confirmAddJar() {
   }
 
   const jar = { name, doses, totalDoses: doses };
-  await supabase
+  await supabaseClient
 .from("jars")
 .insert([{
     name,
@@ -316,7 +312,7 @@ async function confirmAddDoses() {
   const jar = jars[activeJarIndex];
   jar.doses += amount;
   jar.totalDoses += amount;
-  await supabase
+  await supabaseClient
 .from("jars")
 .update({
    doses: jar.doses,
@@ -353,7 +349,7 @@ async function confirmUseDose() {
   }
 
   jar.doses -= amount;
-  await supabase
+  await supabaseClient
 .from("jars")
 .update({
    doses: jar.doses
@@ -375,7 +371,7 @@ function openDelete(index) {
 
 async function confirmDelete() {
   const name = jars[activeJarIndex].name;
-  await supabase
+  await supabaseClient
 .from("jars")
 .delete()
 .eq("id", jars[activeJarIndex].id);
