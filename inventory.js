@@ -1,5 +1,5 @@
 const SUPABASE_URL =
-"https://namfjvpjafopzmlqpoqo.supabase.co/rest/v1/";
+"https://namfjvpjafopzmlqpoqo.supabase.co";
 
 const SUPABASE_KEY =
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5hbWZqdnBqYWZvcHptbHFwb3FvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4NzQ3NzksImV4cCI6MjA5NzQ1MDc3OX0.SPH0BvGeRpa8ff8GJWiEySpu1z9qmIEhFiFEbDXS4DI";
@@ -27,19 +27,24 @@ let jars = [];
 
 async function doLogin() {
 
+  console.log("Login clicked");
+
   const email =
   document.getElementById("email").value;
 
   const password =
   document.getElementById("password").value;
 
+  console.log(email);
+
   const { data, error } =
   await supabase.auth.signInWithPassword({
-
       email,
       password
-
   });
+
+  console.log(data);
+  console.log(error);
 
   if(error){
 
@@ -69,13 +74,24 @@ async function doLogin() {
   renderAll();
 }
 
-document.getElementById("password").addEventListener("keydown", event => {
-  if (event.key === "Enter") doLogin();
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.getElementById("password")
+    .addEventListener("keydown", event => {
+      if (event.key === "Enter") doLogin();
+    });
+
+  document.getElementById("email")
+    .addEventListener("keydown", event => {
+      if (event.key === "Enter") doLogin();
+    });
+
+  initApp();
+
 });
 
-document.getElementById("email").addEventListener("keydown", event => {
-  if (event.key === "Enter") doLogin();
-});
+console.log("Supabase loaded");
+console.log(supabase);
 
 function doLogout() {
   currentUser = null;
@@ -499,4 +515,3 @@ function escapeHtml(value) {
   return div.innerHTML;
 }
 
-initApp();
