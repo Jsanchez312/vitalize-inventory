@@ -247,7 +247,7 @@ function openAddJar() {
   setTimeout(() => document.getElementById("new-jar-name").focus(), 50);
 }
 
-function confirmAddJar() {
+async function confirmAddJar() {
   const name = document.getElementById("new-jar-name").value.trim();
   const doses = parseInt(document.getElementById("new-jar-doses").value, 10);
 
@@ -289,7 +289,7 @@ function openAddDoses(index) {
   setTimeout(() => document.getElementById("add-dose-count").focus(), 50);
 }
 
-function confirmAddDoses() {
+async function confirmAddDoses() {
   const amount = parseInt(document.getElementById("add-dose-count").value, 10);
 
   if (Number.isNaN(amount) || amount < 1) {
@@ -322,7 +322,7 @@ function openUseDose(index) {
   setTimeout(() => document.getElementById("use-dose-count").focus(), 50);
 }
 
-function confirmUseDose() {
+async function confirmUseDose() {
   const amount = parseInt(document.getElementById("use-dose-count").value, 10);
 
   if (Number.isNaN(amount) || amount < 1) {
@@ -357,7 +357,7 @@ function openDelete(index) {
   openModal("modal-delete");
 }
 
-function confirmDelete() {
+async function confirmDelete() {
   const name = jars[activeJarIndex].name;
   await supabase
 .from("jars")
