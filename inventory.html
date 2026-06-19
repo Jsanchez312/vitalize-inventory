@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitalize Wellness Inventory</title>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="inventory.css">
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="login-card">
+    <div class="brand-mark">VW</div>
+    <p class="eyebrow">Secure inventory access</p>
+    <h1>Vitalize Wellness</h1>
+    <p class="login-copy">Infusion medication inventory and low-dose monitoring.</p>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="user@clinic.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter password" autocomplete="current-password">
+    </div>
+    <button class="btn-primary" onclick="doLogin()">Sign in</button>
+    <div class="login-error" id="login-error">Email or password is incorrect. Try again.</div>
+  </div>
+</div>
+
+<div id="app">
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-icon">VW</div>
+      <div>
+        <span class="topbar-title">Vitalize Wellness</span>
+        <span class="topbar-sub">Infusion inventory</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="user-badge" id="user-badge">user</span>
+      <button class="btn-logout" onclick="doLogout()">Sign out</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="workspace-header">
+      <div>
+        <p class="eyebrow">Live medication counts</p>
+        <h2>Inventory dashboard</h2>
+      </div>
+      <div class="status-pill" id="sms-status-pill">SMS alerts: code config</div>
+    </section>
+
+    <section class="summary-grid" id="summary-grid"></section>
+
+    <section class="actions-bar">
+      <button class="btn accent" onclick="openAddJar()">+ New jar</button>
+    </section>
+
+    <section class="table-card">
+      <div class="table-header">
+        <div>
+          <p class="eyebrow">Medication jars</p>
+          <h2>Current stock</h2>
+        </div>
+        <span class="badge badge-ok" id="jar-count-badge">0 jars</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Doses left</th>
+              <th>Total doses</th>
+              <th>Status</th>
+              <th>Level</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jar-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal-add-jar">
+  <div class="modal">
+    <h3>Add new jar</h3>
+    <div class="form-group">
+      <label>Jar name</label>
+      <input type="text" id="new-jar-name" placeholder="Example: med4">
+    </div>
+    <div class="form-group">
+      <label>Number of doses</label>
+      <input type="number" id="new-jar-doses" value="10" min="1" placeholder="10">
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-add-jar')">Cancel</button>
+      <button class="btn accent" onclick="confirmAddJar()">Add jar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-add-doses">
+  <div class="modal">
+    <h3>Refill jar</h3>
+    <p class="modal-copy">Add doses when a new or partial jar is added to an existing medication.</p>
+    <div class="form-group">
+      <label>Medication</label>
+      <input type="text" id="modal-jar-name-display" readonly>
+    </div>
+    <div class="form-group">
+      <label>Doses to add</label>
+      <input type="number" id="add-dose-count" value="10" min="1">
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-add-doses')">Cancel</button>
+      <button class="btn accent" onclick="confirmAddDoses()">Add doses</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-use-dose">
+  <div class="modal">
+    <h3>Administer doses</h3>
+    <p class="modal-copy">Record how many doses were used from this jar.</p>
+    <div class="form-group">
+      <label>Medication</label>
+      <input type="text" id="use-jar-name-display" readonly>
+    </div>
+    <div class="form-group">
+      <label>Doses used</label>
+      <input type="number" id="use-dose-count" value="1" min="1">
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-use-dose')">Cancel</button>
+      <button class="btn danger" onclick="confirmUseDose()">Confirm use</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-delete">
+  <div class="modal">
+    <h3>Delete jar</h3>
+    <p class="modal-copy">Delete <strong id="delete-jar-name"></strong>? This cannot be undone.</p>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-delete')">Cancel</button>
+      <button class="btn danger" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="inventory.js"></script>
+</body>
+</html>
