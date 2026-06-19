@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vitalize Wellness Inventory</title>
-<!-- Google Fonts -->
+<title>Vitalize Wellness Inventorio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,20 +14,20 @@
 <div id="login-screen">
   <div class="login-card">
     <div class="brand-mark">VW</div>
-    <p class="eyebrow">Secure inventory access</p>
+    <p class="eyebrow">Acceso a inventario</p>
     <h1>Vitalize Wellness</h1>
-    <p class="login-copy">Infusion medication inventory and low-dose monitoring.</p>
+    <p class="login-copy">Inventario de medicaciones para las infusiones</p>
 
     <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="user@clinic.com" autocomplete="email">
+      <label for="email">Correo</label>
+      <input type="email" id="email" placeholder="usuario@inventario.com" autocomplete="email">
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter password" autocomplete="current-password">
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" placeholder="Ingresa la contraseña" autocomplete="current-password">
     </div>
-    <button class="btn-primary" onclick="doLogin()">Sign in</button>
-    <div class="login-error" id="login-error">Email or password is incorrect. Try again.</div>
+    <button class="btn-primary" onclick="doLogin()">Iniciar Sesión</button>
+    <div class="login-error" id="login-error">El correo o la contraseña es incorrecto. Intentalo denuevo.</div>
   </div>
 </div>
 
@@ -38,48 +37,48 @@
       <div class="topbar-icon">VW</div>
       <div>
         <span class="topbar-title">Vitalize Wellness</span>
-        <span class="topbar-sub">Infusion inventory</span>
+        <span class="topbar-sub">Inventorio de infusiones</span>
       </div>
     </div>
     <div class="topbar-right">
-      <span class="user-badge" id="user-badge">user</span>
-      <button class="btn-logout" onclick="doLogout()">Sign out</button>
+      <span class="user-badge" id="user-badge">usuario</span>
+      <button class="btn-logout" onclick="doLogout()">Cerrar sesión</button>
     </div>
   </header>
 
   <main class="main">
     <section class="workspace-header">
       <div>
-        <p class="eyebrow">Live medication counts</p>
-        <h2>Inventory dashboard</h2>
+        <p class="eyebrow">Conteo de medicaciones en vivo</p>
+        <h2>Tablero de inventario</h2>
       </div>
-      <div class="status-pill" id="sms-status-pill">SMS alerts: code config</div>
+      <div class="status-pill" id="sms-status-pill">Inventario en vivo</div>
     </section>
 
     <section class="summary-grid" id="summary-grid"></section>
 
     <section class="actions-bar">
-      <button class="btn accent" onclick="openAddJar()">+ New jar</button>
+      <button class="btn accent" onclick="openAddJar()">+ Nueva medicación</button>
     </section>
 
     <section class="table-card">
       <div class="table-header">
         <div>
-          <p class="eyebrow">Medication jars</p>
-          <h2>Current stock</h2>
+          <p class="eyebrow">Tarros de medicación</p>
+          <h2>Stock actual</h2>
         </div>
-        <span class="badge badge-ok" id="jar-count-badge">0 jars</span>
+        <span class="badge badge-ok" id="jar-count-badge">0 Tarros</span>
       </div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Doses left</th>
-              <th>Total doses</th>
-              <th>Status</th>
-              <th>Level</th>
-              <th>Actions</th>
+              <th>Nombre</th>
+              <th>Dosis restantes</th>
+              <th>Dosis totales</th>
+              <th>Estado</th>
+              <th>Nivel</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="jar-table-body"></tbody>
@@ -92,67 +91,67 @@
 
 <div class="modal-backdrop" id="modal-add-jar">
   <div class="modal">
-    <h3>Add new jar</h3>
+    <h3>Agregar nueva medicación</h3>
     <div class="form-group">
-      <label>Jar name</label>
+      <label>Nombre de medicación</label>
       <input type="text" id="new-jar-name" placeholder="Example: med4">
     </div>
     <div class="form-group">
-      <label>Number of doses</label>
+      <label>Número de dosis</label>
       <input type="number" id="new-jar-doses" value="10" min="1" placeholder="10">
     </div>
     <div class="modal-footer">
-      <button class="btn" onclick="closeModal('modal-add-jar')">Cancel</button>
-      <button class="btn accent" onclick="confirmAddJar()">Add jar</button>
+      <button class="btn" onclick="closeModal('modal-add-jar')">Cancelar</button>
+      <button class="btn accent" onclick="confirmAddJar()">Agregar Med</button>
     </div>
   </div>
 </div>
 
 <div class="modal-backdrop" id="modal-add-doses">
   <div class="modal">
-    <h3>Refill jar</h3>
-    <p class="modal-copy">Add doses when a new or partial jar is added to an existing medication.</p>
+    <h3>Rellenar med</h3>
+    <p class="modal-copy">Agregar cuando lleguen nuevas dosis de una medicación ya registrada.</p>
     <div class="form-group">
-      <label>Medication</label>
+      <label>Medicación</label>
       <input type="text" id="modal-jar-name-display" readonly>
     </div>
     <div class="form-group">
-      <label>Doses to add</label>
+      <label>Dosis a agregar</label>
       <input type="number" id="add-dose-count" value="10" min="1">
     </div>
     <div class="modal-footer">
-      <button class="btn" onclick="closeModal('modal-add-doses')">Cancel</button>
-      <button class="btn accent" onclick="confirmAddDoses()">Add doses</button>
+      <button class="btn" onclick="closeModal('modal-add-doses')">Cancelar</button>
+      <button class="btn accent" onclick="confirmAddDoses()">Agregar Dosis</button>
     </div>
   </div>
 </div>
 
 <div class="modal-backdrop" id="modal-use-dose">
   <div class="modal">
-    <h3>Administer doses</h3>
-    <p class="modal-copy">Record how many doses were used from this jar.</p>
+    <h3>Administrar Dosis</h3>
+    <p class="modal-copy">Cuenta cuantas dosis han sido usadas de esta medicación.</p>
     <div class="form-group">
-      <label>Medication</label>
+      <label>Medicación</label>
       <input type="text" id="use-jar-name-display" readonly>
     </div>
     <div class="form-group">
-      <label>Doses used</label>
+      <label>Dosis usadas</label>
       <input type="number" id="use-dose-count" value="1" min="1">
     </div>
     <div class="modal-footer">
-      <button class="btn" onclick="closeModal('modal-use-dose')">Cancel</button>
-      <button class="btn danger" onclick="confirmUseDose()">Confirm use</button>
+      <button class="btn" onclick="closeModal('modal-use-dose')">Cancelar</button>
+      <button class="btn danger" onclick="confirmUseDose()">Confirmar uso</button>
     </div>
   </div>
 </div>
 
 <div class="modal-backdrop" id="modal-delete">
   <div class="modal">
-    <h3>Delete jar</h3>
-    <p class="modal-copy">Delete <strong id="delete-jar-name"></strong>? This cannot be undone.</p>
+    <h3>Eliminar Medicación</h3>
+    <p class="modal-copy">Eliminar<strong id="delete-jar-name"></strong>? Esto no se puede revertir.</p>
     <div class="modal-footer">
-      <button class="btn" onclick="closeModal('modal-delete')">Cancel</button>
-      <button class="btn danger" onclick="confirmDelete()">Delete</button>
+      <button class="btn" onclick="closeModal('modal-delete')">Cancelar</button>
+      <button class="btn danger" onclick="confirmDelete()">Eliminar</button>
     </div>
   </div>
 </div>

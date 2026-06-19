@@ -164,28 +164,28 @@ function renderSummary() {
 
   document.getElementById("summary-grid").innerHTML = `
     <div class="summary-card ok">
-      <div class="icon">J</div>
-      <div class="label">Total jars</div>
+      <div class="icon">T</div>
+      <div class="label">Total Medicaciones</div>
       <div class="value">${totalJars}</div>
-      <div class="sub">currently tracked</div>
+      <div class="sub">Actualmente</div>
     </div>
     <div class="summary-card ok">
       <div class="icon">D</div>
-      <div class="label">Available doses</div>
+      <div class="label">Dosis disponibles</div>
       <div class="value">${totalDoses}</div>
-      <div class="sub">across all medications</div>
+      <div class="sub">a través de todas las medicaciones</div>
     </div>
     <div class="summary-card ${lowCount > 0 ? "warn" : "ok"}">
-      <div class="icon">L</div>
-      <div class="label">Low dose jars</div>
+      <div class="icon">-</div>
+      <div class="label">Medicaciones con dosis bajas</div>
       <div class="value">${lowCount}</div>
-      <div class="sub">below ${LOW_DOSE_SMS_THRESHOLD} doses</div>
+      <div class="sub">Bajo ${LOW_DOSE_SMS_THRESHOLD} Dosis</div>
     </div>
     <div class="summary-card ${emptyCount > 0 ? "danger" : "ok"}">
-      <div class="icon">E</div>
-      <div class="label">Empty jars</div>
+      <div class="icon">!!</div>
+      <div class="label">Medicaciones vacías</div>
       <div class="value">${emptyCount}</div>
-      <div class="sub">need replacement</div>
+      <div class="sub">necesitan reemplazo</div>
     </div>
   `;
 }
